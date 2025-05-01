@@ -41,13 +41,5 @@ Railway Django is a local train ticket reservation system built using the Django
 
 5. Access the application at `http://localhost:8000` and the admin panel at `http://localhost:8000/admin`.
 
-## Contributors
 
-- **Bharathwaj M.**
-  - LinkedIn: [Click Here](https://www.linkedin.com/in/bharathwajmanoharan/)
-  
-- **YAkash Prabhu**
-  - LinkedIn: [Click Here](https://www.linkedin.com/in/akash-prabhu-187858227/)
 
-- **Nikhil Ravichandran**
-  - LinkedIn: [Click Here](https://www.linkedin.com/in/nikhil-ravichandran-ab5aaa247/)https://www.linkedin.com/in/nikhil-ravichandran-ab5aaa247/
