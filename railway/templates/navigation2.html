@@ -24,6 +24,7 @@
   .nav-links {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
   }
 
   .nav-links a {
@@ -44,11 +45,47 @@
   }
 
   .nav-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
     color: white;
     font-family: cursive;
     font-size: 18px;
     padding: 14px 10px;
     white-space: nowrap;
+  }
+
+  .toggle-btn {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+  }
+
+  .toggle-btn i {
+    color: white;
+  }
+
+  /* Light Mode */
+  .light-mode .navbar {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+  }
+
+  .light-mode .nav-links a {
+    color: black;
+  }
+
+  .light-mode .nav-links a:hover {
+    background-color: #ddd;
+  }
+
+  .light-mode .nav-user {
+    color: black;
+  }
+
+  .light-mode .toggle-btn i {
+    color: black;
   }
 
   @media (max-width: 768px) {
@@ -67,8 +104,10 @@
     }
 
     .nav-user {
-      align-self: center;
-      margin-top: 10px;
+      align-self: stretch;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 0;
     }
   }
 </style>
@@ -81,10 +120,37 @@
     <a href="{% url 'log_out' %}">Logout</a>
   </div>
   <div class="nav-user">
-    Welcome {{ request.user.username }}
+    <span>Welcome {{ request.user.username }}</span>
+    <button class="toggle-btn" onclick="toggleTheme()">
+      <i id="theme-icon" class="fa-solid fa-moon"></i>
+    </button>
   </div>
 </div>
 
-{% block b %}
-{% endblock %}
+<script>
+  function toggleTheme() {
+    document.body.classList.toggle("light-mode");
+    const icon = document.getElementById("theme-icon");
+
+    if (document.body.classList.contains("light-mode")) {
+      icon.classList.remove("fa-moon");
+      icon.classList.add("fa-sun");
+      localStorage.setItem("theme", "light");
+    } else {
+      icon.classList.remove("fa-sun");
+      icon.classList.add("fa-moon");
+      localStorage.setItem("theme", "dark");
+    }
+  }
+
+  window.onload = () => {
+    const theme = localStorage.getItem("theme");
+    if (theme === "light") {
+      document.body.classList.add("light-mode");
+      document.getElementById("theme-icon").classList.replace("fa-moon", "fa-sun");
+    }
+  };
+</script>
+
+{% block b %}{% endblock %}
 {% endblock %}

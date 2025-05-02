@@ -3,10 +3,8 @@
 {% block b %}
 
 <style>
-    /* General Styling */
-    .container {
-        max-width: 1200px;
-        margin: 20px auto;
+    .table-wrapper {
+        max-width: 100%;
         padding: 20px;
     }
 
@@ -15,18 +13,20 @@
         border-radius: 12px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         padding: 30px;
+        overflow-x: auto;
     }
 
     h3 {
         font-size: 24px;
         color: #333;
         text-align: center;
+        margin-bottom: 20px;
     }
 
     table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 20px;
+        min-width: 900px; /* Ensures horizontal scrolling */
     }
 
     thead {
@@ -39,10 +39,7 @@
         text-align: left;
         border-bottom: 1px solid #ddd;
         font-size: 16px;
-    }
-
-    th {
-        font-weight: 600;
+        white-space: nowrap; /* Prevent text wrapping */
     }
 
     td a {
@@ -55,22 +52,19 @@
         color: #c9302c;
     }
 
-    /* Responsive Design */
+    /* Responsive adjustments */
     @media (max-width: 768px) {
         .table-container {
             padding: 15px;
         }
 
-        table {
-            font-size: 14px;
-        }
-
         th, td {
+            font-size: 14px;
             padding: 10px;
         }
 
-        td a {
-            font-size: 14px;
+        h3 {
+            font-size: 20px;
         }
     }
 
@@ -79,63 +73,61 @@
             padding: 10px;
         }
 
-        h3 {
-            font-size: 20px;
-        }
-
-        table {
-            font-size: 12px;
-        }
-
         th, td {
+            font-size: 12px;
             padding: 8px;
         }
 
         td a {
             font-size: 12px;
         }
-    }
 
+        h3 {
+            font-size: 18px;
+        }
+    }
 </style>
 
-<div class="table-container">
-    <h3><strong>View Registered Users</strong></h3>
-    <hr>
-    <div class="container">
-        <table class="noteCard table table-bordered" id="myTable">
-            <thead>
-                <tr>
-                    <th>Sr No</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>UserName</th>
-                    <th>Email ID</th>
-                    <th>Contact No.</th>
-                    <th>Address</th>
-                    <th>Birth Date</th>
-                    <th>Gender</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for i in data %}
-                <tr>
-                    <td>{{forloop.counter}}</td>
-                    <td>{{i.user.first_name}}</td>
-                    <td>{{i.user.last_name}}</td>
-                    <td>{{i.user.username}}</td>
-                    <td>{{i.user.email}}</td>
-                    <td>{{i.mobile}}</td>
-                    <td>{{i.add}}</td>
-                    <td>{{i.dob}}</td>
-                    <td>{{i.gender}}</td>
-                    <td style="width:100px">
-                        <a href="{% url 'delete_user' i.user.id %}" onclick="return confirm('Do you really want to delete this user?');">Delete</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+<div class="table-wrapper">
+    <div class="table-container">
+        <h3><strong>View Registered Users</strong></h3>
+        <hr>
+        <div class="table-responsive">
+            <table class="noteCard table table-bordered" id="myTable">
+                <thead>
+                    <tr>
+                        <th>Sr No</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>UserName</th>
+                        <th>Email ID</th>
+                        <th>Contact No.</th>
+                        <th>Address</th>
+                        <th>Birth Date</th>
+                        <th>Gender</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{i.user.first_name}}</td>
+                        <td>{{i.user.last_name}}</td>
+                        <td>{{i.user.username}}</td>
+                        <td>{{i.user.email}}</td>
+                        <td>{{i.mobile}}</td>
+                        <td>{{i.add}}</td>
+                        <td>{{i.dob}}</td>
+                        <td>{{i.gender}}</td>
+                        <td>
+                            <a href="{% url 'delete_user' i.user.id %}" onclick="return confirm('Do you really want to delete this user?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
