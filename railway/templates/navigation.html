@@ -1,56 +1,135 @@
 {% extends 'head.html' %}
 {% load static %}
 {% block body %}
-<style>
-.id2 {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-   border-radius:10px;
-  border:1px solid #bbb;
+<body class="theme-page">
+  <style>
+    .theme-page {
+      font-family: 'Segoe UI', sans-serif;
+      transition: all 0.3s ease;
+    }
 
-}
+    .theme-page .id2 {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      background-color: #333;
+      border-radius: 10px;
+      border: 1px solid #bbb;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      gap: 10px;
+    }
 
-.id1 {
-  float: left;
-  border-right:1px solid #bbb;
-}
+    .theme-page .id1 {
+      padding: 10px 15px;
+    }
 
-li:last-child {
-  border-right: none;
-}
+    .theme-page li a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      display: block;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
 
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
+    .theme-page li a:hover {
+      background-color: #555;
+    }
 
-li a:hover:not(.active) {
-  background-color: #111;
-   border-radius:10px;
-}
+    .theme-page .active {
+      background-color: #4CAF50;
+    }
 
-.active {
-  background-color: #4CAF50;
-  border-radius:10px;
-}
-</style>
+    .theme-page.light-mode {
+      background-color: #ffffff;
+      color: black;
+    }
 
-<ul class="id2">
-  <li class="id1"><a href="{% url 'nav' %}">Home</a></li>
-  <li class="id1"><a href="{% url 'about' %}">About Project</a></li>
-  <li class="id1"><a href="{% url 'login_customer' %}">Login</a></li>
-  <li class="id1"><a href="{% url 'register_customer' %}">Register</a></li>
-  <li class="id1"><a href="{% url 'contact' %}">Contact</a></li>
-</ul>
+    .theme-page.light-mode .id2 {
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+    }
+
+    .theme-page.light-mode li a {
+      color: black;
+    }
+
+    .theme-page.light-mode li a:hover {
+      background-color: #ddd;
+    }
+
+    .theme-page.light-mode .active {
+      background-color: #4CAF50;
+    }
+
+    .theme-page .toggle-btn {
+      background-color: transparent;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .theme-page .toggle-btn i {
+      color: white;
+    }
+
+    .theme-page.light-mode .toggle-btn i {
+      color: black;
+    }
+
+    @media (max-width: 768px) {
+      .theme-page .id2 {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .theme-page .id1 {
+        width: 100%;
+        text-align: left;
+        padding: 10px 15px;
+      }
+
+      .theme-page li a {
+        padding: 10px 20px;
+      }
+    }
+  </style>
+
+  <!-- Navbar -->
+  <ul class="id2">
+    <li class="id1"><a href="{% url 'nav' %}">Home</a></li>
+    <li class="id1"><a href="{% url 'about' %}">About Project</a></li>
+    <li class="id1"><a href="{% url 'login_customer' %}">Login</a></li>
+    <li class="id1"><a href="{% url 'register_customer' %}">Register</a></li>
+    <li class="id1"><a href="{% url 'contact' %}">Contact</a></li>
+    <li>
+      <button class="toggle-btn" onclick="toggleTheme()">
+        <i id="theme-icon" class="fa-solid fa-moon"></i>
+      </button>
+    </li>
+  </ul>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle("light-mode");
+      const icon = document.getElementById("theme-icon");
+
+      if (document.body.classList.contains("light-mode")) {
+        icon.classList.remove("fa-moon");
+        icon.classList.add("fa-sun");
+      } else {
+        icon.classList.remove("fa-sun");
+        icon.classList.add("fa-moon");
+      }
+    }
+  </script>
+
   {% block a %}
   {% endblock %}
-
-
-
+</body>
 {% endblock %}

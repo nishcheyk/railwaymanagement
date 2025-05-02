@@ -2,57 +2,132 @@
 {% load static %}
 {% block b %}
 <style>
-    input[type=text][type=password]{
-    border-radius:8px;
-    width:600px;
-    height:16px;
+    .form-container, .train-card {
+        background-color: white;
+        border-radius: 8px;
+        padding: 30px;
+        margin: 15px auto;
+        max-width: 90%;
+        color: black;
+    }
+
+    input, select {
+        border-radius: 8px;
+        width: 100%;
+        height: 40px;
+        margin-top: 5px;
+        margin-bottom: 20px;
+        padding: 5px 10px;
+        box-sizing: border-box;
+    }
+
+    .train-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .train-card {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #ddd;
+    }
+
+    .train-info {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-left: 0;
+    }
+
+    .train-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .train-card img {
+        width: 100%;
+        max-width: 150px;
+        height: auto;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+
+    .train-card button {
+        background-color: #333;
+        border: none;
+        padding: 10px 20px;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        width: fit-content;
+    }
+
+    .train-card a {
+        color: white;
+        text-decoration: none;
+    }
+
+    @media (min-width: 768px) {
+        .train-card {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .train-content {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .train-card img {
+            margin: 0;
+        }
     }
 </style>
 
-<div style="color:Black;border:1px solid white;border-radius:8px;background-color:white;padding:50px">
-{% if error %}
-    <h3><strong>All Available Trains</strong></h3><hr>
-    <table width="800">
-        {% for i in route1 %}
-
-        <tr style="margin-top:10px">
-            <td><hr><img src="{{i.0.img.url}}" style="width:150px;height:135"></td>
-            <td><b><br>Train Name: {{i.0.trainname}}</b><br>
-                Train Number: {{i.0.train_no}}<br>
-                From City: {{i.0.from_city}}<br>
-                Fare: {{fare3}}<br></td>
-            <td><br><br><button style="background-color:#333;border:1px solid black;border-radius:8px;padding:10px"><a href="{% url 'book_detail' coun i.0.id route %}" style="padding:30px;color:white;">Book Now</a></button><br><br></td>
-        </tr>
-        {% endfor %}
-    </table><br>
-
-
-
-
+<div class="form-container">
+    {% if error %}
+        <h3><strong>All Available Trains</strong></h3><hr>
+        <div class="train-list">
+            {% for i in route1 %}
+            <div class="train-card">
+                <img src="{{ i.0.img.url }}" alt="Train Image">
+                <div class="train-content">
+                    <div class="train-info">
+                        <strong>Train Name:</strong> {{ i.0.trainname }}<br>
+                        <strong>Train Number:</strong> {{ i.0.train_no }}<br>
+                        <strong>From City:</strong> {{ i.0.from_city }}<br>
+                        <strong>Fare:</strong> {{ fare3 }}<br>
+                    </div>
+                    <button><a href="{% url 'book_detail' coun i.0.id route %}">Book Now</a></button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     {% else %}
-    <h3><strong>Search Train</strong></h3><hr>
-    <form method="post" action="">
-        {% csrf_token %}
+        <h3><strong>Search Train</strong></h3><hr>
+        <form method="post" action="">
+            {% csrf_token %}
+            <label>From City:</label>
+            <select name="fcity">
+                {% for i in data2 %}
+                    <option>{{ i.route }}</option>
+                {% endfor %}
+            </select>
 
-        From City:<br><select name="fcity" style="border-radius:8px;width:600px;height:35px;">
-        {% for i in data2 %}
-                            <option>{{i.route}}</option>
-        {% endfor %}
-                      </select><br><br>
+            <label>To City:</label>
+            <select name="tcity">
+                {% for i in data2 %}
+                    <option>{{ i.route }}</option>
+                {% endfor %}
+            </select>
 
-        To City:<br><select name="tcity" style="border-radius:8px;width:600px;height:35px;">
-                           {% for i in data2 %}
-                            <option>{{i.route}}</option>
-        {% endfor %}
+            <label>Travel Date:</label>
+            <input type="date" name="date">
 
-                     </select><br><br>
-
-        Travel Date:<br><input type="date" name="date" style="border-radius:8px;width:600px;height:35px;"><br><br>
-        <input type="submit" value="Search" style="color:white;border-radius:8px;width:115px;height:35px;background-color:#333;border:1px solid black">
-    </form>
+            <input type="submit" value="Search">
+        </form>
     {% endif %}
-
-
-    </div>
-
+</div>
 {% endblock %}

@@ -1,27 +1,61 @@
 {% extends 'navigation3.html' %}
 {% load static %}
 {% block b %}
+
 <style>
-    input[type=text][type=password]{
-    border-radius:8px;
-    width:600px;
-    height:16px;
+    .dashboard-container {
+        color: black;
+        border: 1px solid white;
+        border-radius: 8px;
+        background-color: white;
+        padding: 40px;
+        margin: 20px auto;
+        max-width: 700px;
+        width: 90%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    .dashboard-button {
+        width: 100%;
+        max-width: 600px;
+        color: white;
+        border-radius: 8px;
+        height: 45px;
+        background-color: #333;
+        border: none;
+        margin: 10px 0;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .dashboard-link {
+        display: block;
+        text-decoration: none;
+    }
+
+    @media (max-width: 640px) {
+        .dashboard-button {
+            font-size: 14px;
+            height: 40px;
+        }
     }
 </style>
+
 <center>
-<div style="color:Black;border:1px solid white;border-radius:8px;background-color:white;padding:50px">
+    <div class="dashboard-container">
+        <h3><strong>Dashboard</strong></h3>
+        <hr>
 
-    <h3><strong>Dashboard</strong></h3><hr>
+        <a href="{% url 'admindashboard' %}" class="dashboard-link"><button class="dashboard-button">Dashboard</button></a>
+        <a href="{% url 'add_train' %}" class="dashboard-link"><button class="dashboard-button">Add Train</button></a>
+        <a href="{% url 'add_route' %}" class="dashboard-link"><button class="dashboard-button">Add Route</button></a>
+        <a href="{% url 'availableroute' %}" class="dashboard-link"><button class="dashboard-button">View Route</button></a>
+        <a href="{% url 'view_train' %}" class="dashboard-link"><button class="dashboard-button">Train Report</button></a>
+        <a href="{% url 'viewbookings' %}" class="dashboard-link"><button class="dashboard-button">View Bookings</button></a>
+        <a href="{% url 'view_regusers' %}" class="dashboard-link"><button class="dashboard-button">View Reg. Users</button></a>
+        <a href="{% url 'log_out' %}" class="dashboard-link"><button class="dashboard-button">Logout</button></a>
+    </div>
+</center>
 
-    <h3><a href="{% url 'admindashboard' %}"><button style="width:600px;color:white;border-radius:8px;height:45px;background-color:#333">Dashboard</button></a></h3>
-   <h3><a href="{% url 'add_train' %}"><button  style="width:600px;color:white;border-radius:8px;height:45px;background-color:#333">Add Train</button></a></h3>
-   <h3><a href="{% url 'add_route' %}"><button  style="width:600px;color:white;border-radius:8px;height:45px;background-color:#333">Add Route</button></a></h3>
-   <h3><a href="{% url 'availableroute' %}"><button  style="width:600px;color:white;border-radius:8px;height:45px;background-color:#333">View Route</button></a></h3>
-    <h3><a href="{% url 'view_train' %}"><button  style="width:600px;color:white;border-radius:8px;height:45px;background-color:#333">Train Report</button></a></h3>
-     <h3><a href="{% url 'viewbookings' %}"><button style="width:600px;color:white;border-radius:8px;height:45px;background-color:#333">View Bookings</button></a></h3>
-    <h3><a href="{% url 'view_regusers' %}"><button style="width:600px;color:white;border-radius:8px;height:45px;background-color:#333">View Reg. Users</button></a></h3>
-    <h3><a href="{% url 'log_out' %}"><button style="width:600px;color:white;border-radius:8px;height:45px;background-color:#333">Logout</button></a></h3>
-</div>
-    </center>
 {% endblock %}
-  <li id="id1"><a href="{% url 'availableroute' %}">View Route</a></li>

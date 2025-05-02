@@ -1,17 +1,20 @@
 {% extends 'navigation.html' %}
 {% load static %}
 {% block a %}
-<div style="color:Black;border:1px solid white;border-radius:8px;background-color:white;padding:50px">
+<div style="color:black; border:1px solid white; border-radius:8px; background-color:white; padding:30px; max-width:100%; box-sizing:border-box;">
     <div>
-<h3><strong>About Project</strong></h3><hr>
-    <table>
-        <td style="padding:30px"><p>This is Simple Railway Reservation System Project developed by abc and xyz
-            using HTML , CSS , Javascript as frontend and Python , Sqlite in backend.</p></td>
-        <td><img src="{% static 'images\trainabt.jpg' %}" style="height:200px;width:350px;margin-left:40px;margin-top:14px"></td>
-    </table>
-        <br><br><br><br><br><br><br><br>
-</div>
+        <h3><strong>About Project</strong></h3>
+        <hr>
+        <div style="display: flex; flex-direction: column; gap: 20px; align-items: center; justify-content: center;">
 
-</div>
+            <div style="display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 900px;">
+                <p style="text-align: justify;">
+                    This is a Simple Railway Reservation System Project developed by abc and xyz using HTML, CSS, JavaScript as frontend and Python, SQLite in backend.
+                </p>
+                <img src="{% static 'images/trainabt.jpg' %}" alt="Train Image" style="width: 100%; max-width: 400px; height: auto; align-self: center; border-radius: 6px;">
+            </div>
 
+        </div>
+    </div>
+</div>
 {% endblock %}
