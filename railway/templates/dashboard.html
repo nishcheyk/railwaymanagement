@@ -2,21 +2,65 @@
 {% load static %}
 {% block b %}
 <style>
-    input[type=text][type=password]{
-    border-radius:8px;
-    width:600px;
-    height:16px;
+    /* Button Styling */
+    button {
+        width: 100%; /* Full width for small screens */
+        color: white;
+        border-radius: 8px;
+        height: 45px;
+        background-color: #333;
+        border: none;
+        font-size: 18px;
+        padding: 10px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+    /* Container Styling */
+    .dashboard-container {
+        color: Black;
+        border: 1px solid white;
+        border-radius: 8px;
+        background-color: white;
+        padding: 50px;
+        width: 80%; /* Adjust width for responsiveness */
+        margin: auto;
+    }
+
+    /* Heading Styling */
+    .dashboard-container h3 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    /* Centered layout */
+    center {
+        display: block;
+        margin-top: 20px;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .dashboard-container {
+            padding: 20px;
+            width: 90%; /* Ensure it's even more fluid on mobile */
+        }
+
+        button {
+            font-size: 16px; /* Smaller font on mobile */
+        }
     }
 </style>
-<center>
-<div style="color:Black;border:1px solid white;border-radius:8px;background-color:white;padding:50px">
 
-    <h3><strong>Dashboard</strong></h3><hr>
+    <div class="dashboard-container">
 
-    <h3><a href="{% url 'dashboard' %}"><button style="width:600px;color:white;border-radius:8px;height:45px;background-color:#333">Dashboard</button></a></h3>
-   <h3><a href="{% url 'search_train' %}"><button  style="width:600px;color:white;border-radius:8px;height:45px;background-color:#333">Search Train</button></a></h3>
-    <h3><a href="{% url 'my_booking' %}"><button  style="width:600px;color:white;border-radius:8px;height:45px;background-color:#333">My Booking</button></a></h3>
-    <h3><a href="{% url 'log_out' %}"><button style="width:600px;color:white;border-radius:8px;height:45px;background-color:#333">Logout</button></a></h3>
-</div>
-    </center>
+        <h3><strong>Dashboard</strong></h3><hr>
+
+        <h3><a href="{% url 'dashboard' %}"><button>Dashboard</button></a></h3>
+        <h3><a href="{% url 'search_train' %}"><button>Search Train</button></a></h3>
+        <h3><a href="{% url 'my_booking' %}"><button>My Booking</button></a></h3>
+        <h3><a href="{% url 'log_out' %}"><button>Logout</button></a></h3>
+    </div>
+
+
 {% endblock %}

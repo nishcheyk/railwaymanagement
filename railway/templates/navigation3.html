@@ -1,89 +1,166 @@
 {% extends 'head.html' %}
 {% load static %}
 {% block body %}
-<link rel = stylesheet href = "//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-  <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-  <script>
-    $(document).ready( function () {
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function () {
     $('#myTable').DataTable();
-} );
-  </script>
-
+  });
+</script>
 
 <style>
-.id2 {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-   border-radius:10px;
-  border:1px solid #bbb;
+  .admin-navbar {
+    list-style: none;
+    margin: 0;
+    padding: 10px 20px;
+    background-color: #333;
+    border-radius: 10px;
+    border: 1px solid #bbb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    font-family: Arial, Helvetica, sans-serif;
+  }
 
-}
+  .nav-left {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
 
-#id1 {
-  float: left;
-  border-right:1px solid #bbb;
-}
-#id2 {
+  .nav-left li {
+    list-style: none;
+  }
 
-  float: left;
-  border-left:1px solid #bbb;
-}
+  .nav-left li a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
 
-li:last-child {
-  border-right: none;
-}
+  .nav-left li a:hover {
+    background-color: #111;
+  }
 
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
+  .active {
+    background-color: #4CAF50;
+  }
 
-li a:hover:not(.active) {
-  background-color: #111;
-   border-radius:10px;
-}
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
 
-.active {
-  background-color: #4CAF50;
-  border-radius:10px;
-}
+  .welcome-msg {
+    color: white;
+    font-size: 18px;
+    font-family: cursive;
+  }
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
+  .toggle-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+  }
 
+  .toggle-btn i {
+    color: white;
+  }
 
+  /* Light Theme */
+  .light-mode .admin-navbar {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+  }
 
+  .light-mode .nav-left li a {
+    color: black;
+  }
+
+  .light-mode .nav-left li a:hover {
+    background-color: #ddd;
+  }
+
+  .light-mode .toggle-btn i,
+  .light-mode .welcome-msg {
+    color: black;
+  }
+
+  @media (max-width: 768px) {
+    .admin-navbar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .nav-left {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .nav-left li {
+      width: 100%;
+    }
+
+    .nav-right {
+      margin-top: 10px;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
 </style>
 
-<ul class="id2">
-  <li id="id1"><a href="{% url 'admindashboard' %}">Dashboard</a></li>
-  <li id="id1"><a href="{% url 'add_train' %}">Add Train</a></li>
-  <li id="id1"><a href="{% url 'add_route' %}">Add Route</a></li>
-  <li id="id1"><a href="{% url 'availableroute' %}">View Route</a></li>
-  <li id="id1"><a href="{% url 'view_train'%}">Train Report</a></li>
+<!-- Admin Navbar -->
+<ul class="admin-navbar">
+  <div class="nav-left">
+    <li><a href="{% url 'admindashboard' %}">Dashboard</a></li>
+    <li><a href="{% url 'add_train' %}">Add Train</a></li>
+    <li><a href="{% url 'add_route' %}">Add Route</a></li>
+    <li><a href="{% url 'availableroute' %}">View Route</a></li>
+    <li><a href="{% url 'view_train' %}">Train Report</a></li>
+    <li><a href="{% url 'viewbookings' %}">View Bookings</a></li>
+    <li><a href="{% url 'view_regusers' %}">View Reg. Users</a></li>
+    <li><a href="{% url 'log_out' %}">Logout</a></li>
+  </div>
 
-
-  <li id="id1"><a href="{% url 'log_out' %}">Logout</a></li>
-
-
-
-      <li id="id2" style="margin-left:600px"><a href="" style="color:white"><strong style="font-size:18px;font-family:cursive">Welcome {{request.user.username}}</strong></a></li>
-
+  <div class="nav-right">
+    <span class="welcome-msg">Welcome {{ request.user.username }}</span>
+    <button class="toggle-btn" onclick="toggleTheme()">
+      <i id="theme-icon" class="fa-solid fa-moon"></i>
+    </button>
+  </div>
 </ul>
 
+<script>
+  function toggleTheme() {
+    document.body.classList.toggle("light-mode");
+    const icon = document.getElementById("theme-icon");
 
+    if (document.body.classList.contains("light-mode")) {
+      icon.classList.remove("fa-moon");
+      icon.classList.add("fa-sun");
+      localStorage.setItem("theme", "light");
+    } else {
+      icon.classList.remove("fa-sun");
+      icon.classList.add("fa-moon");
+      localStorage.setItem("theme", "dark");
+    }
+  }
 
+  window.onload = () => {
+    const theme = localStorage.getItem("theme");
+    if (theme === "light") {
+      document.body.classList.add("light-mode");
+      document.getElementById("theme-icon").classList.replace("fa-moon", "fa-sun");
+    }
+  };
+</script>
 
-{% block b %}
-{% endblock %}
-
-
-
+{% block b %}{% endblock %}
 {% endblock %}

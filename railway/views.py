@@ -123,37 +123,79 @@ def Logout(request):
     logout(request)
     return redirect('nav')
 
-def Book_detail(request,coun,pid,route1):
+def Book_detail(request, coun, pid, route1):
     if not request.user.is_authenticated:
         return redirect('login')
-    error = False
 
+    error = False
+    passenger = None
+
+    # Get fare and travel date from Asehi
     try:
         data = Asehi.objects.get(id=coun)
-    except:
-        data = None
-    data2 = Add_Train.objects.get(id=pid)
-    user2 = User.objects.filter(username=request.user.username).get()
-    user1 = Register.objects.filter(user=user2).get()
-    pro = Passenger.objects.filter(user=user1)
-    book = Book_ticket.objects.filter(user=user1)
-    total = 0
-    for i in pro:
-        if i.status!="set":
-            total = total + i.fare
-    passenger=0
+    except Asehi.DoesNotExist:
+        return redirect('search_train')  # or handle gracefully
 
-    if request.method=="POST":
-        f = request.POST["name"]
-        t = request.POST["age"]
-        da = request.POST["gender"]
-        passenger = Passenger.objects.create(user=user1,train=data2,route=route1,name=f,gender=da,age=t,fare=data.fare,date1=data.date3)
-        Book_ticket.objects.create(user=user1, route=route1, fare=total, passenger=passenger, date2=data.date3)
+    data2 = Add_Train.objects.get(id=pid)
+
+    # Get logged-in user's related info
+    user2 = User.objects.get(username=request.user.username)
+    user1 = Register.objects.get(user=user2)
+
+    # Get passengers added for this train, route and user
+    pro = Passenger.objects.filter(user=user1, train=data2, route=route1).exclude(status="set")
+
+    # Accurately calculate total fare from each passenger
+    total = sum(p.fare for p in pro)
+
+    # Booking records for reference
+    book = Book_ticket.objects.filter(user=user1)
+
+    if request.method == "POST":
+        name = request.POST["name"]
+        age = request.POST["age"]
+        gender = request.POST["gender"]
+
+        passenger = Passenger.objects.create(
+            user=user1,
+            train=data2,
+            route=route1,
+            name=name,
+            gender=gender,
+            age=age,
+            fare=data.fare,
+            date1=data.date3
+        )
+
+        # Recalculate total after adding the new passenger
+        pro = Passenger.objects.filter(user=user1, train=data2, route=route1).exclude(status="set")
+        total = sum(p.fare for p in pro)
+
+        Book_ticket.objects.create(
+            user=user1,
+            route=route1,
+            fare=data.fare,
+            passenger=passenger,
+            date2=data.date3
+        )
 
         if passenger:
             error = True
-    d = {'data':data,'data2':data2,'pro':pro,'total':total,'book':book,'error':error,'route1':route1,'coun':coun,'pid':pid}
-    return render(request,'book_detail.html',d)
+
+    context = {
+        'data': data,
+        'data2': data2,
+        'pro': pro,
+        'total': total,
+        'book': book,
+        'error': error,
+        'route1': route1,
+        'coun': coun,
+        'pid': pid,
+        'fare3': data.fare
+    }
+
+    return render(request, 'book_detail.html', context)
 
 def Delete_passenger(request,pid,bid,route1):
     if not request.user.is_authenticated:
@@ -174,7 +216,7 @@ def Card_Detail(request,total,coun,route1,pid):
     try:
         data = Asehi.objects.get(id=coun)
     except:
-        data=None
+        data = None
     data2 = Add_Train.objects.get(id=pid)
     user2 = User.objects.filter(username=request.user.username).get()
     user1 = Register.objects.filter(user=user2).get()
@@ -280,7 +322,7 @@ def add_route(request):
         d = request.POST['dis']
 
         bus1 = Add_Train.objects.filter(id=b).get()
-        Add_route.objects.create(train=bus1,route=r,distance=d,fare=f)
+        Add_route.objects.create(train=b,route=r,distance=d,fare=f)
         error = True
 
     d={"data":data,"error":error}

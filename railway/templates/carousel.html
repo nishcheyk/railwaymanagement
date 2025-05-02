@@ -2,7 +2,7 @@
 {% load static %}
 {% block a %}
 <center>
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -11,27 +11,18 @@
     </ol>
 
     <!-- Wrapper for slides -->
-    <div class="carousel-inner" style="border-radius:12px;background-color:white;border:1px solid #bbb;">
-
+    <div class="carousel-inner" style="border-radius:12px; background-color:white; border:1px solid #bbb;">
       <div class="item active">
-        <img src="{% static 'images\Bus1.png' %}" alt="Los Angeles" style="width:100%;height:500px">
-        <div class="carousel-caption">
-        </div>
+        <img src="{% static 'images/bus23.jpg' %}" alt="Los Angeles" style="width:100%;height:500px">
       </div>
 
       <div class="item">
-        <img src="{% static 'images\Bus2.jpg' %}" alt="Chicago" style="width:100%;height:500px;">
-        <div class="carousel-caption">
-        </div>
+        <img src="{% static 'images/trainabt.jpg' %}" alt="Chicago" style="width:100%;height:500px;">
       </div>
 
       <div class="item">
-        <img src="{% static 'images\Bus3.jpg' %}" alt="New York" style="width:100%;height:500px;">
-        <div class="carousel-caption">
-
-        </div>
+        <img src="{% static 'images/bus3.jpg' %}" alt="New York" style="width:100%;height:500px;">
       </div>
-
     </div>
 
     <!-- Left and right controls -->
@@ -44,58 +35,53 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
-    </center>
-<div style="color:Black;border:1px solid white;border-radius:8px;background-color:white">
+</center>
 
-    <h2><strong>Railway Reservation System</strong></h2>
-<p>Railway Reservation System is designed to automate the online ticket purchasing through an
-    easy-to-use online train ticket booking system. Embed our online train ticketing system into your website and enable
-    your customers to book tickets for various routes and destinations. With the railway ticket reservation system, you can manage
-    reservations, client data, and passenger lists. You can also schedule routes, set
-    seat availability, upload an interactive seat map and let customers select their seats.The Railway
-    Reservation System is available under two licensing options: User and Developer License. Check the differences below.
-Want to request a custom modification? Please contact us and describe the changes you need!</p><br>
-    <p>E-Ticket Booking application development for a leading luxury coach operator in Singapore to enable customers to reserve their tickets online easily & securely.
-    <br><ul style="list-style-type:circle">
+<div style="color:Black;border:1px solid white;border-radius:8px;background-color:white;padding:20px">
+  <h2><strong>Railway Reservation System</strong></h2>
+  <p>The Railway Reservation System is designed to automate the online ticket purchasing process. It provides an easy-to-use platform to book tickets for various routes and destinations. With this system, you can manage reservations, client data, and passenger lists. You can also schedule routes, set seat availability, and let customers select their seats.</p><br>
+  <p>The system includes features like:</p>
+  <ul style="list-style-type:circle">
     <li>Easy & convenient booking</li>
     <li>Manage reservations & seating effectively</li>
-    <li>Safe & secure payment gateway module</li>
+    <li>Safe & secure payment gateway</li>
     <li>Detail reports for managing trips</li>
-    <li>Easy & convenient booking</li>
-</ul></p></div>
-<div style="border:1px solid white;border-radius:8px;background-color:#333"><h4 style="color:white;margin-left:5px"><strong>Project Modules</strong></h4></div>
+  </ul>
+</div>
+
+<div style="border:1px solid white;border-radius:8px;background-color:#333">
+  <h4 style="color:white;margin-left:5px"><strong>Project Modules</strong></h4>
+</div>
 
 <div style="border:1px solid white;border-radius:8px;background-color:white;margin-top:2px">
-     <div class="row">
-         <div  class="column">
-    <div class=" col-md-2 ">
-        <img src="{% static 'images\img21.png' %}" style="height:200px;width:150px;margin-left:40px;margin-top:14px">
-    </div> <div class=" col-md-2">
-        <h5><strong>Railway Reservation Sysyem</strong></h5><p>The Railway
-    Reservation System is available under two licensing options: User and Developer License. Check the differences below.
-                Want to request a custom modification? Please contact us and describe the changes you need</p>
-    </div></div>
+  <div class="row">
+    <!-- Module 1 -->
+    <div class="col-md-4 col-sm-12">
+      <div class="module-item">
+        <img src="{% static 'images/img21.png' %}" style="height:200px;width:150px;margin:14px;">
+        <h5><strong>Railway Reservation System</strong></h5>
+        <p>This system is available under two licensing options: User and Developer License. For custom modifications, please contact us.</p>
+      </div>
+    </div>
 
+    <!-- Module 2 -->
+    <div class="col-md-4 col-sm-12">
+      <div class="module-item">
+        <img src="{% static 'images/img31.jpg' %}" style="height:200px;width:150px;margin:14px;">
+        <h5><strong>Railway Reservation System</strong></h5>
+        <p>We offer custom modifications based on your needs. Contact us for more details.</p>
+      </div>
+    </div>
 
-    <div  class="column">
-    <div class=" col-md-2 ">
-        <img src="{% static 'images\img31.jpg' %}" style="height:200px;width:150px;margin-left:50px;margin-top:14px">
-    </div> <div class=" col-md-2">
-        <h5><strong>Railway Reservation System</strong></h5><p>The Railway
-    Reservation System is available under two licensing options: User and Developer License. Check the differences below.
-                Want to request a custom modification? Please contact us and describe the changes you need</p>
-    </div></div>
+    <!-- Module 3 -->
+    <div class="col-md-4 col-sm-12">
+      <div class="module-item">
+        <img src="{% static 'images/img53.jpg' %}" style="height:200px;width:150px;margin:14px;">
+        <h5><strong>Login Management</strong></h5>
+        <p>The system includes secure login management to handle user authentication.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-
-    <div  class="column">
-    <div class=" col-md-2 ">
-        <img src="{% static 'images\img53.jpg' %}" style="height:200px;width:150px;margin-left:50px;margin-top:14px">
-    </div> <div class=" col-md-2">
-        <h5><strong>Login Management</strong></h5><p>The Railway
-    Reservation System is available under two licensing options: User and Developer License. Check the differences below.
-                Want to request a custom modification? Please contact us and describe the changes you need</p>
-    </div></div>
-
-
- </div>
 {% endblock %}

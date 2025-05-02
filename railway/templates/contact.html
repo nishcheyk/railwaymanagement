@@ -2,29 +2,75 @@
 {% load static %}
 {% block a %}
 <style>
-    input[type=text][type=password]{
-    border-radius:8px;
+    /* Styling input fields and textareas */
+    input[type=text], input[type=password], input[type=email], textarea {
+        border-radius: 8px;
+        width: 100%;  /* Ensure inputs and textareas take full width */
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+    }
 
+    /* Submit button styling */
+    input[type="submit"] {
+        color: white;
+        background-color: #333;
+        border: 1px solid black;
+        padding: 10px 20px;
+        width: auto;
+        cursor: pointer;
+        border-radius: 8px;
+    }
 
+    .form-container {
+        color: Black;
+        border: 1px solid white;
+        border-radius: 8px;
+        background-color: white;
+        padding: 50px;
+    }
+
+    .form-container h3 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .form-container {
+            padding: 20px;
+        }
+
+        .form-container input[type="submit"] {
+            width: 100%; /* Make the submit button full-width on mobile */
+        }
     }
 </style>
 
-
-<div style="color:Black;border:1px solid white;border-radius:8px;background-color:white;padding:50px">
-
+<div class="form-container">
     <h3><strong>Contact Us</strong></h3><hr>
     <form method="post" action="">
         {% csrf_token %}
-        User Name:<br><input type="text" required class= "form-control" placeholder="Enter user name" name="uname" style="border-radius:8px;"><br><br>
-        Your Email:<br><input type="email" required class= "form-control" placeholder="Enter email" name="email" style="border-radius:8px;"><br><br>
-        Your Message:<br><textarea  name="message" required class= "form-control" style="border-radius:8px;"></textarea><br><br>
-        <input type="submit" value="Send Feedback" class= "form-control" style="color:white;border-radius:8px;width:125px;height:35px;background-color:#333;border:1px solid black">
+
+        <div>
+            <label for="uname">User Name:</label><br>
+            <input type="text" required class="form-control" placeholder="Enter user name" name="uname" id="uname">
+        </div>
+
+        <div>
+            <label for="email">Your Email:</label><br>
+            <input type="email" required class="form-control" placeholder="Enter email" name="email" id="email">
+        </div>
+
+        <div>
+            <label for="message">Your Message:</label><br>
+            <textarea name="message" required class="form-control" id="message" placeholder="Enter your message"></textarea>
+        </div>
+
+        <div>
+            <input type="submit" value="Send Feedback" class="form-control">
+        </div>
     </form>
-
-
-    </div>
-
-
-
+</div>
 
 {% endblock %}

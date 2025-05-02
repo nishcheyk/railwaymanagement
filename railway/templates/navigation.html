@@ -8,26 +8,28 @@
       transition: all 0.3s ease;
     }
 
-    .theme-page .id2 {
-      list-style-type: none;
+    /* Navbar Container */
+    .theme-page .navbar {
+      list-style: none;
       margin: 0;
-      padding: 0;
+      margin-bottom: 2%;
+      padding: 10px 20px;
       background-color: #333;
-      border-radius: 10px;
       border: 1px solid #bbb;
+      border-radius: 10px;
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 20px;
+      flex-wrap: wrap;
+    }
+
+    /* Left Menu Group */
+    .theme-page .nav-left {
+      display: flex;
       gap: 10px;
     }
 
-    .theme-page .id1 {
-      padding: 10px 15px;
-    }
-
-    .theme-page li a {
+    .theme-page .nav-left li a {
       color: white;
       text-decoration: none;
       padding: 10px 15px;
@@ -36,7 +38,7 @@
       transition: background-color 0.3s ease;
     }
 
-    .theme-page li a:hover {
+    .theme-page .nav-left li a:hover {
       background-color: #555;
     }
 
@@ -44,69 +46,72 @@
       background-color: #4CAF50;
     }
 
-    .theme-page.light-mode {
-      background-color: #ffffff;
-      color: black;
-    }
-
-    .theme-page.light-mode .id2 {
-      background-color: #f9f9f9;
-      border: 1px solid #ccc;
-    }
-
-    .theme-page.light-mode li a {
-      color: black;
-    }
-
-    .theme-page.light-mode li a:hover {
-      background-color: #ddd;
-    }
-
-    .theme-page.light-mode .active {
-      background-color: #4CAF50;
-    }
-
+    /* Theme Button */
     .theme-page .toggle-btn {
       background-color: transparent;
       border: none;
-      font-size: 24px;
+      font-size: 22px;
       cursor: pointer;
-      transition: color 0.3s ease;
     }
 
     .theme-page .toggle-btn i {
       color: white;
     }
 
+    /* Light Mode */
+    .theme-page.light-mode {
+      background-color: #ffffff;
+      color: black;
+    }
+
+    .theme-page.light-mode .navbar {
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+    }
+
+    .theme-page.light-mode .nav-left li a {
+      color: black;
+    }
+
+    .theme-page.light-mode .nav-left li a:hover {
+      background-color: #ddd;
+    }
+
     .theme-page.light-mode .toggle-btn i {
       color: black;
     }
 
+    /* Responsive */
     @media (max-width: 768px) {
-      .theme-page .id2 {
+      .theme-page .navbar {
         flex-direction: column;
         align-items: flex-start;
       }
 
-      .theme-page .id1 {
+      .theme-page .nav-left {
+        flex-direction: column;
         width: 100%;
-        text-align: left;
-        padding: 10px 15px;
       }
 
-      .theme-page li a {
-        padding: 10px 20px;
+      .theme-page .nav-left li {
+        width: 100%;
+      }
+
+      .theme-page .toggle-btn {
+        align-self: flex-end;
       }
     }
   </style>
 
   <!-- Navbar -->
-  <ul class="id2">
-    <li class="id1"><a href="{% url 'nav' %}">Home</a></li>
-    <li class="id1"><a href="{% url 'about' %}">About Project</a></li>
-    <li class="id1"><a href="{% url 'login_customer' %}">Login</a></li>
-    <li class="id1"><a href="{% url 'register_customer' %}">Register</a></li>
-    <li class="id1"><a href="{% url 'contact' %}">Contact</a></li>
+  <ul class="navbar">
+    <div class="nav-left">
+      <li><a href="{% url 'nav' %}">Home</a></li>
+      <li><a href="{% url 'about' %}">About Project</a></li>
+      <li><a href="{% url 'login_customer' %}">Login</a></li>
+      <li><a href="{% url 'register_customer' %}">Register</a></li>
+      <li><a href="{% url 'contact' %}">Contact</a></li>
+    </div>
     <li>
       <button class="toggle-btn" onclick="toggleTheme()">
         <i id="theme-icon" class="fa-solid fa-moon"></i>

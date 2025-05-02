@@ -1,50 +1,200 @@
 {% extends 'navigation3.html' %}
 {% load static %}
 {% block b %}
-<style>
-    input[type=text][type=time][type=file]{
-    border-radius:8px;
-    width:600px;
-    height:16px;
-    }
-</style>
+
 {% if error %}
 <script>
-alert('Record Updated Successfully');
-window.location='{% url 'view_train' %}';
+    alert('Record Updated Successfully');
+    window.location = '{% url "view_train" %}';
 </script>
 {% endif %}
 
-<div style="color:Black;border:1px solid white;border-radius:8px;background-color:white;padding:50px">
+<style>
+    .form-container {
+        max-width: 700px;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+    }
 
-        <h3><strong>Edit Train Detail</strong></h3><hr>
+    .form-container h3 {
+        text-align: center;
+        font-size: 26px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .form-container label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 6px;
+        margin-top: 15px;
+        font-size: 16px;
+    }
+
+    .form-container input,
+    .form-container select {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 15px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+        transition: border-color 0.3s;
+    }
+
+    .form-container input:focus,
+    .form-container select:focus {
+        border-color: #333;
+        outline: none;
+    }
+
+    .form-container input[type="submit"] {
+        background-color: #333;
+        color: white;
+        border: none;
+        cursor: pointer;
+        padding: 12px 20px;
+        width: auto;
+        margin-top: 20px;
+        transition: background 0.3s;
+        font-size: 16px;
+    }
+
+    .form-container input[type="submit"]:hover {
+        background-color: #555;
+    }
+
+    .form-container img {
+        border-radius: 8px;
+        width: 200px;
+        height: 150px;
+        display: block;
+        margin-bottom: 15px;
+    }
+
+    .form-container a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .form-container a:hover {
+        color: #555;
+    }
+
+    @media (max-width: 1024px) {
+        .form-container {
+            padding: 25px;
+            margin: 20px;
+        }
+
+        .form-container h3 {
+            font-size: 22px;
+        }
+
+        .form-container input,
+        .form-container select {
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .form-container {
+            padding: 20px;
+            margin: 15px;
+        }
+
+        .form-container h3 {
+            font-size: 20px;
+        }
+
+        .form-container label {
+            font-size: 14px;
+        }
+
+        .form-container input,
+        .form-container select {
+            font-size: 13px;
+            padding: 10px 12px;
+        }
+
+        .form-container img {
+            width: 180px;
+            height: 120px;
+        }
+
+        .form-container input[type="submit"] {
+            padding: 10px 18px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .form-container {
+            padding: 15px;
+            margin: 10px;
+        }
+
+        .form-container h3 {
+            font-size: 18px;
+        }
+
+        .form-container input,
+        .form-container select {
+            font-size: 12px;
+            padding: 8px 10px;
+        }
+
+        .form-container img {
+            width: 150px;
+            height: 100px;
+        }
+
+        .form-container input[type="submit"] {
+            padding: 8px 14px;
+        }
+    }
+</style>
+
+<div class="form-container">
+    <h3><strong>Edit Train Detail</strong></h3>
     <form method="post" action="">
         {% csrf_token %}
-        Train Name:<br><input type="text" placeholder="Enter Train Name" value="{{data.trainname}}" name="busname" style="border-radius:8px;width:600px;height:35px;"><br><br>
 
-        Train No:<br><input type="text" placeholder="Enter Train No." value="{{data.train_no}}" name="bus_no" style="border-radius:8px;width:600px;height:35px;"><br><br>
+        <label for="busname">Train Name</label>
+        <input type="text" id="busname" name="busname" placeholder="Enter Train Name" value="{{data.trainname}}">
 
-        From City:<br><input type="text" placeholder="Enter pick location" value="{{data.from_city}}" name="fcity" style="border-radius:8px;width:600px;height:35px;"><br><br>
+        <label for="bus_no">Train No.</label>
+        <input type="text" id="bus_no" name="bus_no" placeholder="Enter Train No." value="{{data.train_no}}">
 
-        To City:<br><input type="text" placeholder="Enter Drop location" value="{{data.to_city}}" name="tcity" style="border-radius:8px;width:600px;height:35px;"><br><br>
+        <label for="fcity">From City</label>
+        <input type="text" id="fcity" name="fcity" placeholder="Enter pick location" value="{{data.from_city}}">
 
-        Departure Time: <br><input value="{{data.departuretime}}" type="text" placeholder="Enter Departure time" name="dtime"  style="border-radius:8px;width:600px;height:35px;"><br><br>
+        <label for="tcity">To City</label>
+        <input type="text" id="tcity" name="tcity" placeholder="Enter Drop location" value="{{data.to_city}}">
 
-        Arrival Time: <br><input value="{{data.arrivaltime}}" type="text" placeholder="Enter arrival time" name="atime" style="border-radius:8px;width:600px;height:35px;"><br><br>
+        <label for="dtime">Departure Time</label>
+        <input type="text" id="dtime" name="dtime" placeholder="Enter Departure time" value="{{data.departuretime}}">
 
-        Travel Time: <br><input value="{{data.trevaltime}}"  type="text" placeholder="Enter Travel time"  name="ttime" style="border-radius:8px;width:600px;height:35px;"><br><br>
+        <label for="atime">Arrival Time</label>
+        <input type="text" id="atime" name="atime" placeholder="Enter arrival time" value="{{data.arrivaltime}}">
 
-        Distance:<br><input type="number" placeholder="Enter Distance" value="{{data.distance}}" name="dis" style="border-radius:8px;width:600px;height:35px;"><br><br>
+        <label for="ttime">Travel Time</label>
+        <input type="text" id="ttime" name="ttime" placeholder="Enter Travel time" value="{{data.trevaltime}}">
 
-        Image:<br><img src ="{{data.img.url}}" style="border-radius:8px;width:200px;height:150px;">
-        &nbsp;<a href="{% url 'change_image' data.id %}">Change Image</a>
-        <br><br>
+        <label for="dis">Distance</label>
+        <input type="number" id="dis" name="dis" placeholder="Enter Distance" value="{{data.distance}}">
 
+        <label for="img">Image</label>
+        <img src="{{data.img.url}}" alt="Train Image">
+        <a href="{% url 'change_image' data.id %}">Change Image</a>
 
-
-        <input type="submit" value="Update" style="color:white;border-radius:8px;width:100px;height:35px;background-color:#333;border:1px solid black">
+        <input type="submit" value="Update">
     </form>
-
-    </div>
+</div>
 
 {% endblock %}

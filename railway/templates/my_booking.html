@@ -1,70 +1,149 @@
 {% extends 'navigation2.html' %}
 {% load static %}
 {% block b %}
-<style>
-    input[type=text][type=password]{
-    border-radius:8px;
-    width:600px;
-    height:16px;
-    }
-</style>
 
+<!-- Alert if booking was deleted -->
 {% if error %}
 <script>
-  alert('Booking Deleted Successfully')
-  window.location='{% url 'my_booking' %}'
+  alert('Booking Deleted Successfully');
+  window.location = '{% url "my_booking" %}';
 </script>
 {% endif %}
-<div style="color:Black;border:1px solid white;border-radius:8px;background-color:white;padding:50px">
-        <h3><strong>Booking Details</strong></h3><hr>
 
-<div class="container">
-<table class="table table-bordered" id="myTable">
-  <thead style="color:white;background-color:#333">
-  <tr>
-    <th>Sr No</th>
-    <th>Passenger</th>
-      <th>Train Name & No.</th>
-      <th>Age</th>
-    <th>Gender</th>
-    <th>Date</th>
-       <th>Fare</th>
-       <th>Travelling</th>
-       <th>Status</th>
-    <th>Action</th>
-     <th>Action</th>
-  </tr>
-  </thead>
-   <tbody>
+<style>
+  .booking-container {
+    color: black;
+    border: 1px solid white;
+    border-radius: 8px;
+    background-color: white;
+    padding: 50px;
+    margin: 20px;
+  }
 
-    {% for i in pro %}
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
 
-  <tr>
-    <td>{{forloop.counter}}</td>
-    <td>{{i.name}}</td>
-    <td>{{i.train.trainname}}. {{i.train.tran_no}}</td>
-      <td>{{i.age}}</td>
-      <td>{{i.gender}}</td>
-      <td>{{i.date1}}</td>
-      <td>{{i.fare}}</td>
-      <td>{{i.route}}</td>
-      {% if i.status == 'set' %}
-      <td style="color:green">Booking Confirmed</td>
-      {% else %}
-      <td style="color:red">No Transaction</td>
-      {% endif %}
-    <td><a href="{% url 'delte_my_booking' i.id %}" style="color:red"><u>Delete</u></a>
-    <td><a href="{% url 'view_ticket' i.id %}" style="color:red"><u>View&nbsp;Ticket</u></a>
-    </td>
+  thead {
+    background-color: #333;
+    color: white;
+  }
 
-  </tr>
+  th, td {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+  }
 
-    {% endfor %}
-    </tbody>
-</table>
+  td a {
+    color: red;
+    text-decoration: underline;
+  }
 
- </div>
+  .status-confirmed {
+    color: green;
+    font-weight: bold;
+  }
 
+  .status-pending {
+    color: red;
+    font-weight: bold;
+  }
+
+  @media (max-width: 768px) {
+    .booking-container {
+      padding: 20px;
+    }
+
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+
+    thead {
+      display: none;
+    }
+
+    tr {
+      margin-bottom: 15px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    td {
+      text-align: left;
+      padding-left: 50%;
+      position: relative;
+    }
+
+    td:before {
+      position: absolute;
+      left: 10px;
+      width: 45%;
+      white-space: nowrap;
+      font-weight: bold;
+    }
+
+    td:nth-of-type(1):before { content: "Sr No"; }
+    td:nth-of-type(2):before { content: "Passenger"; }
+    td:nth-of-type(3):before { content: "Train Name & No."; }
+    td:nth-of-type(4):before { content: "Age"; }
+    td:nth-of-type(5):before { content: "Gender"; }
+    td:nth-of-type(6):before { content: "Date"; }
+    td:nth-of-type(7):before { content: "Fare"; }
+    td:nth-of-type(8):before { content: "Travelling"; }
+    td:nth-of-type(9):before { content: "Status"; }
+    td:nth-of-type(10):before { content: "Delete"; }
+    td:nth-of-type(11):before { content: "View Ticket"; }
+  }
+</style>
+
+<div class="booking-container">
+  <h3><strong>Booking Details</strong></h3>
+  <hr>
+
+  <div class="table-responsive">
+    <table class="table table-bordered" id="myTable">
+      <thead>
+        <tr>
+          <th>Sr No</th>
+          <th>Passenger</th>
+          <th>Train Name & No.</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>Date</th>
+          <th>Fare</th>
+          <th>Travelling</th>
+          <th>Status</th>
+          <th>Delete</th>
+          <th>View Ticket</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in pro %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ i.name }}</td>
+          <td>{{ i.train.trainname }} - {{ i.train.train_no }}</td>
+          <td>{{ i.age }}</td>
+          <td>{{ i.gender }}</td>
+          <td>{{ i.date1 }}</td>
+          <td>{{ i.fare }}</td>
+          <td>{{ i.route }}</td>
+          <td class="{% if i.status == 'set' %}status-confirmed{% else %}status-pending{% endif %}">
+            {% if i.status == 'set' %}
+              Booking Confirmed
+            {% else %}
+              No Transaction
+            {% endif %}
+          </td>
+
+          <td><a href="{% url 'delte_my_booking' i.id %}">Delete</a></td>
+          <td><a href="{% url 'view_ticket' i.id %}">View Ticket</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 
 {% endblock %}

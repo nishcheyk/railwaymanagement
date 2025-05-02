@@ -4,6 +4,19 @@
   <meta charset="UTF-8">
   <title>Online Train Ticket Booking</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Apply saved theme BEFORE loading CSS to prevent flicker -->
+  <script>
+    (function() {
+      try {
+        if (localStorage.getItem('theme') === 'light') {
+          document.documentElement.classList.add('light-mode');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
   <!-- Bootstrap 3 -->
@@ -46,9 +59,6 @@
       color: var(--dark-text);
     }
 
-
-
-
     .content-box {
       background-color: var(--primary-dark);
       border-radius: 10px;
@@ -76,34 +86,56 @@
       transition: background-color 0.3s, color 0.3s;
     }
 
-    .light-mode {
+    /* Light Mode Styles (use html.light-mode instead of body) */
+    html.light-mode {
       background-color: var(--light-bg);
       color: var(--light-text);
     }
 
-    .light-mode .header-bar {
-      background-color: var(--primary-light);
-    }
-
-    .light-mode .header-bar h1 {
+    html.light-mode body {
+      background-color: var(--light-bg);
       color: var(--light-text);
     }
 
-    .light-mode .toggle-theme-btn {
+    html.light-mode .header-bar {
+      background-color: var(--primary-light);
+    }
+
+    html.light-mode .header-bar h1 {
+      color: var(--light-text);
+    }
+
+    html.light-mode .toggle-theme-btn {
       background-color: #eee;
       color: #000;
       border: 1px solid #ccc;
     }
 
-    .light-mode .content-box {
+    html.light-mode .content-box {
       background-color: #fff;
       color: #000;
     }
 
-    .light-mode input,
-    .light-mode select,
-    .light-mode textarea {
+    html.light-mode input,
+    html.light-mode select,
+    html.light-mode textarea {
       background-color: var(--input-bg-light);
+      color: var(--light-text);
+    }
+
+    /* Theme toggle button */
+    .toggle-theme-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background-color: transparent;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--dark-text);
+    }
+
+    html.light-mode .toggle-theme-btn {
       color: var(--light-text);
     }
   </style>
@@ -120,6 +152,8 @@
       </strong>
     </h1>
 
+    <!-- Theme Toggle Button -->
+
   </div>
 
   <div class="content-box">
@@ -129,15 +163,10 @@
 
   <script>
     function toggleTheme() {
-      document.body.classList.toggle('light-mode');
-      localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+      const html = document.documentElement;
+      html.classList.toggle('light-mode');
+      localStorage.setItem('theme', html.classList.contains('light-mode') ? 'light' : 'dark');
     }
-
-    window.onload = () => {
-      if (localStorage.getItem('theme') === 'light') {
-        document.body.classList.add('light-mode');
-      }
-    };
   </script>
 </body>
 </html>
