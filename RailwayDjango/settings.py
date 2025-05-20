@@ -16,7 +16,8 @@ SECRET_KEY = 'pi3o6@68356vi2!0ydgog7r&&^$2y5l!xcs&n5&8=3rrlpe&!f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []  # Add your Render domain here in production
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'railway-management-pchc.onrender.com']
+ # Add your Render domain here in production
 
 # Application definition
 INSTALLED_APPS = [
